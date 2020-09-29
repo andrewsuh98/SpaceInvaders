@@ -4,7 +4,7 @@ const image = new Image(50, 50);
 image.src = "./assets/tank.png";
 
 class Tank extends Sprite {
-    constructor(x, y, width, height, image) {
+    constructor(x, y, width, height) {
         super(x, y, width, height, image);
         this.dx = 0;
         document.addEventListener("keydown", this.keyDownHandler.bind(this));
