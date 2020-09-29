@@ -6,7 +6,7 @@ img.src = "./assets/tank.png";
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, canvas.width / 2 - 25, canvas.height - 60, 50, 50);
+  //ctx.drawImage(img, canvas.width / 2 - 25, canvas.height - 60, 50, 50);
   window.requestAnimationFrame(draw);
 }
 
