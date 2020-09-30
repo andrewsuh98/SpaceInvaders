@@ -26,14 +26,18 @@ function draw() {
   tank.move(canvas.width);
   missiles.forEach((missile) => {
     invaders.forEach((invader) => {
-      missile.collides(invader);
+      if (missile.intersects(invader)) {
+        missiles.splice(missiles.indexOf(missile), 1);
+      }
     });
     missile.draw(ctx);
     missile.move(canvas.width);
   });
   invaders.forEach((invader) => {
     missiles.forEach((missile) => {
-      invader.collides(missile);
+      if (invader.intersects(missile)) {
+        invaders.splice(invaders.indexOf(invader), 1);
+      }
     });
     invader.draw(ctx);
     invader.move(canvas.width);

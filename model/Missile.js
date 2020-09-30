@@ -19,12 +19,6 @@ class Missile extends Sprite {
     move(canvasWidth) {
         super.move(0, this.dy);
     }
-
-    collides(invader) {
-        if (this.visible && this.intersects(invader)) {
-            this.visible = false;
-        }
-    }
 }
 
 export default Missile;

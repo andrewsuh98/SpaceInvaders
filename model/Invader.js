@@ -37,12 +37,6 @@ class Invader extends Sprite {
         this.handleBoundary(canvasWidth);
     }
 
-    collides(missile) {
-        if (this.visible && this.intersects(missile)) {
-            this.visible = false;
-        }
-    }
-
 }
 
 export default Invader;
