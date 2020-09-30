@@ -20,10 +20,7 @@ function keyDownHandler(e) {
   }
 }
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  tank.draw(ctx);
-  tank.move(canvas.width);
+function updateMissiles() {
   missiles.forEach((missile) => {
     invaders.forEach((invader) => {
       if (missile.intersects(invader)) {
@@ -33,6 +30,9 @@ function draw() {
     missile.draw(ctx);
     missile.move(canvas.width);
   });
+}
+
+function updateInvaders() {
   invaders.forEach((invader) => {
     missiles.forEach((missile) => {
       if (invader.intersects(missile)) {
@@ -42,6 +42,14 @@ function draw() {
     invader.draw(ctx);
     invader.move(canvas.width);
   });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  tank.draw(ctx);
+  tank.move(canvas.width);
+  updateMissiles();
+  updateInvaders();
   window.requestAnimationFrame(draw);
 }
 
