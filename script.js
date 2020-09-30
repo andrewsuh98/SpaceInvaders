@@ -4,8 +4,6 @@ import Invader from "./model/Invader.js";
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-ctx.font = "15px Comic Sans MS";
-ctx.fillStyle = "#62d5f7";
 
 const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 const missiles = [];
@@ -14,6 +12,7 @@ const invaders = [];
 const maxMissile = 10;
 let killCount = 0;
 
+//let startGame = false;
 let isGameOver = false;
 
 function getRandomInt(max) {
@@ -23,6 +22,9 @@ function getRandomInt(max) {
 function keyDownHandler(e) {
   if (e.key === " " && (maxMissile - missiles.length) > 0) {
     missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
+  }
+  if (e.key === "Enter") {
+    draw();
   }
 }
 
@@ -89,7 +91,17 @@ function draw() {
   }
 }
 
-draw();
+function welcomeScreen() {
+  ctx.font = "20px fantasy";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#62d5f7";
+  ctx.fillText("Press ENTER to Start Game", canvas.width / 2, canvas.height / 2);
+  ctx.font = "15px Comic Sans MS";
+  ctx.textAlign = "start";
+  ctx.fillStyle = "#62d5f7";
+}
+
+welcomeScreen();
 
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("gameover", gameOver);
