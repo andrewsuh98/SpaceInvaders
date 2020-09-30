@@ -5,10 +5,10 @@ const sideCounterDefault = 10;
 image.src = "./assets/invader.png";
 
 class Invader extends Sprite {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, dy) {
         super(x, y, width, height, image);
         this.dx = 1;
-        this.dy = 3;
+        this.dy = dy;
         this.sideCounter = sideCounterDefault;
         this.visible = true;
     }

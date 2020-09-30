@@ -12,7 +12,6 @@ const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 const missiles = [];
 
 const invaders = [];
-invaders.push(new Invader(canvas.width / 2 - 20, 60, 40, 40)); // TODO remove
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -52,7 +51,7 @@ function drawMissiles() {
 function createRandomInvaders() {
   const random = getRandomInt(canvas.width * 100);
   if (random > 0 && random < canvas.width - 40){
-    invaders.push(new Invader(random, 0, 40, 40))
+    invaders.push(new Invader(random, 0, 40, 40, getRandomInt(5)));
   }
 }
 
