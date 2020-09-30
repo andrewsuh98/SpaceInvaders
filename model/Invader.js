@@ -1,7 +1,7 @@
 import Sprite from "./Sprite.js";
 
 const image = new Image(50, 50);
-const sideCounterDefault = 10;
+const sideCounterDefault = 15;
 image.src = "./assets/invader.png";
 
 const gameOver = new CustomEvent("gameover");
@@ -9,7 +9,7 @@ const gameOver = new CustomEvent("gameover");
 class Invader extends Sprite {
     constructor(x, y, width, height, dy) {
         super(x, y, width, height, image);
-        this.dx = 1;
+        this.dx = 0.5;
         this.dy = dy;
         this.sideCounter = sideCounterDefault;
     }
