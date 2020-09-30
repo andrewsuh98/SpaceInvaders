@@ -24,27 +24,28 @@ function keyDownHandler(e) {
   }
 }
 
-function updateMissiles() {
+function collisionDetection() {
   missiles.forEach((missile) => {
     invaders.forEach((invader) => {
       if (missile.intersects(invader)) {
         missiles.splice(missiles.indexOf(missile), 1);
-      }
-    });
-    missile.draw(ctx);
-    missile.move(canvas.width);
-  });
-}
-
-function updateInvaders() {
-  invaders.forEach((invader) => {
-    missiles.forEach((missile) => {
-      if (invader.intersects(missile)) {
         invaders.splice(invaders.indexOf(invader), 1);
       }
     });
+  });
+}
+
+function drawInvaders() {
+  invaders.forEach((invader) => {
     invader.draw(ctx);
     invader.move(canvas.width);
+  });
+}
+
+function drawMissiles() {
+  missiles.forEach((missile) => {
+    missile.draw(ctx);
+    missile.move(canvas.width);
   });
 }
 
@@ -60,8 +61,9 @@ function draw() {
   tank.draw(ctx);
   tank.move(canvas.width);
   createRandomInvaders();
-  updateMissiles();
-  updateInvaders();
+  collisionDetection();
+  drawInvaders();
+  drawMissiles();
   window.requestAnimationFrame(draw);
 }
 
