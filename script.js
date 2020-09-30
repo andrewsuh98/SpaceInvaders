@@ -12,8 +12,9 @@ const invaders = [];
 const maxMissile = 10;
 let killCount = 0;
 
-//let startGame = false;
 let isGameOver = false;
+
+const music = new Audio("./assets/music.mpeg");
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -24,6 +25,7 @@ function keyDownHandler(e) {
     missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
   }
   if (e.key === "Enter") {
+    music.play();
     draw();
   }
 }
@@ -65,6 +67,7 @@ function createRandomInvaders() {
 }
 
 function gameOver() {
+  music.pause();
   ctx.font = "50px fantasy";
   ctx.textAlign = "center";
   ctx.fillStyle = "#62d5f7";
@@ -73,7 +76,6 @@ function gameOver() {
   ctx.fillStyle = "#fbf087";
   ctx.fillText("Score: " + killCount, canvas.width / 2, canvas.height / 2 + 40);
   isGameOver = true;
-  //window.alert("Game Over!");
 }
 
 function draw() {
