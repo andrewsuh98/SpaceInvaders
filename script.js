@@ -7,12 +7,12 @@ const ctx = canvas.getContext("2d");
 
 const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 
-//const missile = new Missile(canvas.width / 2 - 7, canvas.height - 60, 15, 15);
-
-const invader = new Invader(canvas.width / 2 - 20, 60, 40, 40);
+//const testMissile = new Missile(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 
 const missiles = [];
-//document.addEventListener("keyup", this.keyUpHandler.bind(this));
+
+const invaders = [];
+invaders.push(new Invader(canvas.width / 2 - 20, 60, 40, 40)); // TODO remove
 
 function keyDownHandler(e) {
   if (e.key === " ") {
@@ -25,11 +25,19 @@ function draw() {
   tank.draw(ctx);
   tank.move(canvas.width);
   missiles.forEach((missile) => {
+    invaders.forEach((invader) => {
+      missile.collides(invader);
+    });
     missile.draw(ctx);
     missile.move(canvas.width);
   });
-  invader.draw(ctx);
-  invader.move(canvas.width);
+  invaders.forEach((invader) => {
+    missiles.forEach((missile) => {
+      invader.collides(missile);
+    });
+    invader.draw(ctx);
+    invader.move(canvas.width);
+  });
   window.requestAnimationFrame(draw);
 }
 

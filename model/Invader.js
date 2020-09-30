@@ -10,6 +10,13 @@ class Invader extends Sprite {
         this.dx = 1;
         this.dy = 3;
         this.sideCounter = sideCounterDefault;
+        this.visible = true;
+    }
+
+    draw(ctx) {
+        if (this.visible) {
+            super.draw(ctx);
+        }
     }
 
     handleBoundary(canvasWidth) {
@@ -30,11 +37,10 @@ class Invader extends Sprite {
         this.handleBoundary(canvasWidth);
     }
 
-    // TODO: implement the collides function
-    collides(paddle) {
-        // if (this.intersects(paddle)) {
-        //     this.dy *= -1; // switch direction
-        // }
+    collides(missile) {
+        if (this.visible && this.intersects(missile)) {
+            this.visible = false;
+        }
     }
 
 }
