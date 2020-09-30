@@ -13,9 +13,9 @@ class Tank extends Sprite {
 
     keyDownHandler(e) {
         if (e.key === "Right" || e.key === "ArrowRight") {
-            this.dx = 7;
+            this.dx = 8;
         } else if (e.key === "Left" || e.key === "ArrowLeft") {
-            this.dx = -7;
+            this.dx = -8;
         }
     }
 

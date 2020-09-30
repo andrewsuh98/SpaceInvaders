@@ -51,7 +51,7 @@ function drawMissiles() {
 function createRandomInvaders() {
   const random = getRandomInt(canvas.width * 100);
   if (random > 0 && random < canvas.width - 40){
-    invaders.push(new Invader(random, 0, 40, 40, getRandomInt(5)));
+    invaders.push(new Invader(random, 0, 40, 40, getRandomInt(4)));
   }
 }
 
