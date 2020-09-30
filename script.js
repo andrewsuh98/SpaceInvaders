@@ -13,6 +13,7 @@ const maxMissile = 10;
 let killCount = 0;
 
 let isGameOver = false;
+let isGameStart = false;
 
 const music = new Audio("./assets/music.mpeg");
 const soundShoot = new Audio("./assets/shoot.wav");
@@ -23,13 +24,14 @@ function getRandomInt(max) {
 }
 
 function keyDownHandler(e) {
-  if (e.key === " " && (maxMissile - missiles.length) > 0) {
+  if (e.key === " " && (maxMissile - missiles.length && isGameStart) > 0) {
     missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
     soundShoot.play();
     soundShoot.currentTime = 0;
   }
-  if (e.key === "Enter") {
+  if (e.key === "Enter" && !isGameStart) {
     music.play();
+    isGameStart = true;
     draw();
   }
 }
