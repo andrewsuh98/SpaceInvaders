@@ -15,6 +15,8 @@ let killCount = 0;
 let isGameOver = false;
 
 const music = new Audio("./assets/music.mpeg");
+const soundShoot = new Audio("./assets/shoot.wav");
+const soundExplosion = new Audio("./assets/explosion.wav");
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -23,6 +25,8 @@ function getRandomInt(max) {
 function keyDownHandler(e) {
   if (e.key === " " && (maxMissile - missiles.length) > 0) {
     missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
+    soundShoot.play();
+    soundShoot.currentTime = 0;
   }
   if (e.key === "Enter") {
     music.play();
@@ -39,6 +43,8 @@ function collisionDetection() {
       if (missile.intersects(invader)) {
         missiles.splice(missiles.indexOf(missile), 1);
         invaders.splice(invaders.indexOf(invader), 1);
+        soundExplosion.play();
+        soundExplosion.currentTime = 0;
         killCount++;
       }
     });
