@@ -11,21 +11,26 @@ const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 const missiles = [];
 const invaders = [];
 
-let missileCount = 10;
+const maxMissile = 10;
 let killCount = 0;
+
+let isGameOver = false;
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
 function keyDownHandler(e) {
-  if (e.key === " ") {
+  if (e.key === " " && (maxMissile - missiles.length) > 0) {
     missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
   }
 }
 
 function collisionDetection() {
   missiles.forEach((missile) => {
+    if (missile.isOutOfBounds()) {
+      missiles.splice(missiles.indexOf(missile), 1);
+    }
     invaders.forEach((invader) => {
       if (missile.intersects(invader)) {
         missiles.splice(missiles.indexOf(missile), 1);
@@ -57,6 +62,18 @@ function createRandomInvaders() {
   }
 }
 
+function gameOver() {
+  ctx.font = "50px fantasy";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#62d5f7";
+  ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+  ctx.font = "20px fantasy";
+  ctx.fillStyle = "#fbf087";
+  ctx.fillText("Score: " + killCount, canvas.width / 2, canvas.height / 2 + 40);
+  isGameOver = true;
+  //window.alert("Game Over!");
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tank.draw(ctx);
@@ -65,23 +82,14 @@ function draw() {
   collisionDetection();
   drawInvaders();
   drawMissiles();
-  ctx.fillText("Invaders shot down: " + killCount, 10, 20);
-  ctx.fillText("Missiles remaining: " + missileCount, 10, 40);
-  window.requestAnimationFrame(draw);
+  if (!isGameOver) {
+    ctx.fillText("Invaders shot down: " + killCount, 10, 20);
+    ctx.fillText("Missiles remaining: " + (maxMissile - missiles.length), 10, 40);
+    window.requestAnimationFrame(draw);
+  }
 }
 
 draw();
 
 document.addEventListener("keydown", keyDownHandler);
-document.addEventListener("gameover", (e) => {
-  window.alert("Game Over!");
-});
-
-// TODO: The tank has an ammunition supply of 10 missiles.
-//  However, it gets a new missile as soon as a previously
-//  fired one hits an invader or leaves the canvas (from the top).
-
-// TODO: On the canvas, top left corner, you must display the number
-//  of missiles remaining as well as the number of invaders shot down.
-
-// TODO: You must display a "game over" message on canvas when game is over.
+document.addEventListener("gameover", gameOver);

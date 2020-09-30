@@ -16,6 +16,10 @@ class Missile extends Sprite {
     move(canvasWidth) {
         super.move(0, this.dy);
     }
+
+    isOutOfBounds() {
+        return this.y < this.height * -1;
+    }
 }
 
 export default Missile;
