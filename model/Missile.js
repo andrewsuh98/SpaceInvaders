@@ -7,13 +7,10 @@ class Missile extends Sprite {
     constructor(x, y, width, height) {
         super(x, y, width, height, image);
         this.dy = -10;
-        this.visible = true;
     }
 
     draw(ctx) {
-        if (this.visible) {
-            super.draw(ctx);
-        }
+        super.draw(ctx);
     }
 
     move(canvasWidth) {

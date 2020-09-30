@@ -4,17 +4,20 @@ const image = new Image(50, 50);
 const sideCounterDefault = 10;
 image.src = "./assets/invader.png";
 
+const gameOver = new CustomEvent("gameover");
+
 class Invader extends Sprite {
     constructor(x, y, width, height, dy) {
         super(x, y, width, height, image);
         this.dx = 1;
         this.dy = dy;
         this.sideCounter = sideCounterDefault;
-        this.visible = true;
     }
 
-    draw(ctx) {
-        if (this.visible) {
+    draw(ctx, canvasHeight) {
+        if(this.touchGround(canvasHeight)) {
+            document.dispatchEvent(gameOver);
+        } else {
             super.draw(ctx);
         }
     }
@@ -25,6 +28,10 @@ class Invader extends Sprite {
         } else if (this.x + this.width > canvasWidth) {
             this.x = canvasWidth - this.width;
         }
+    }
+
+    touchGround(canvasHeight) {
+        return this.y + 40 >= canvasHeight;
     }
 
     move(canvasWidth) {

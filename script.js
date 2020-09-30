@@ -7,8 +7,6 @@ const ctx = canvas.getContext("2d");
 
 const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
 
-//const testMissile = new Missile(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
-
 const missiles = [];
 
 const invaders = [];
@@ -36,7 +34,7 @@ function collisionDetection() {
 
 function drawInvaders() {
   invaders.forEach((invader) => {
-    invader.draw(ctx);
+    invader.draw(ctx, canvas.height);
     invader.move(canvas.width);
   });
 }
@@ -67,4 +65,8 @@ function draw() {
 }
 
 draw();
+
 document.addEventListener("keydown", keyDownHandler);
+document.addEventListener("gameover", (e) => {
+  window.alert("Game Over!");
+});
