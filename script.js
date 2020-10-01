@@ -2,30 +2,65 @@ import Tank from "./model/Tank.js";
 import Missile from "./model/Missile.js";
 import Invader from "./model/Invader.js";
 
+/**
+ * Create the canvas.
+ */
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-const tank = new Tank(canvas.width / 2 - 25, canvas.height - 60, 50, 50);
-const missiles = [];
-const invaders = [];
-
-const maxMissile = 10;
-let killCount = 0;
-
-let isGameOver = false;
-let isGameStart = false;
-
+/**
+ * Load the music and sound effects.
+ */
 const music = new Audio("./assets/music.mpeg");
 const soundShoot = new Audio("./assets/shoot.wav");
 const soundExplosion = new Audio("./assets/explosion.wav");
 
+/**
+ * Initialize some settings and counters.
+ */
+const MAX_MISSILE = 10;
+const TANK_WIDTH = 50;
+const TANK_HEIGHT = 50;
+const TANK_BOTTOM_MARGIN = 10;
+const MISSILE_WIDTH = 16;
+const MISSILE_HEIGHT = 16;
+const INVADER_WIDTH = 40;
+const INVADER_HEIGHT = 40;
+const INVADER_TOP_MARGIN = 10;
+const INVADER_MAX_SPEED = 4;
+const INVADER_MULTIPLIER = 100;
+let killCount = 0;
+let isGameOver = false;
+let isGameStart = false;
+
+
+/**
+ * Create the Tank.
+ * Initialize the array of missiles and invaders.
+ */
+const tank = new Tank(canvas.width / 2 - TANK_WIDTH / 2, canvas.height - TANK_HEIGHT - TANK_BOTTOM_MARGIN,
+    TANK_WIDTH, TANK_HEIGHT);
+const missiles = [];
+const invaders = [];
+
+/**
+ * Return a random integer between 0 and max, exclusive.
+ *
+ * @param max the maximum integer value to return.
+ * @returns {number} integer between 0 and max.
+ */
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+/**
+ * 
+ * @param e
+ */
 function keyDownHandler(e) {
-  if (e.key === " " && (maxMissile - missiles.length && isGameStart) > 0) {
-    missiles.push(new Missile(tank.x + 25 - 8, canvas.height - 60 - 16, 16, 16))
+  if (e.key === " " && (MAX_MISSILE - missiles.length && isGameStart) > 0) {
+    missiles.push(new Missile(tank.x + TANK_WIDTH / 2 - MISSILE_WIDTH / 2,
+        canvas.height - TANK_HEIGHT - TANK_BOTTOM_MARGIN - MISSILE_HEIGHT, MISSILE_WIDTH, MISSILE_HEIGHT))
     soundShoot.play();
     soundShoot.currentTime = 0;
   }
@@ -68,9 +103,10 @@ function drawMissiles() {
 }
 
 function createRandomInvaders() {
-  const random = getRandomInt(canvas.width * 100);
-  if (random > 0 && random < canvas.width - 40){
-    invaders.push(new Invader(random, 0, 40, 40, getRandomInt(4)));
+  const random = getRandomInt(canvas.width * INVADER_MULTIPLIER);
+  if (random > 0 && random < canvas.width - INVADER_WIDTH){
+    invaders.push(new Invader(random, INVADER_TOP_MARGIN, INVADER_WIDTH,
+        INVADER_HEIGHT, getRandomInt(INVADER_MAX_SPEED)));
   }
 }
 
@@ -96,7 +132,7 @@ function draw() {
   drawMissiles();
   if (!isGameOver) {
     ctx.fillText("Invaders shot down: " + killCount, 10, 20);
-    ctx.fillText("Missiles remaining: " + (maxMissile - missiles.length), 10, 40);
+    ctx.fillText("Missiles remaining: " + (MAX_MISSILE - missiles.length), 10, 40);
     window.requestAnimationFrame(draw);
   }
 }
