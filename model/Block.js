@@ -1,3 +1,6 @@
+/**
+ * A object that has values of x, y, width, height, and the image.
+ */
 class Block {
     constructor(x, y, width, height, image) {
         this.x = x;
@@ -7,11 +10,21 @@ class Block {
         this.image = image;
     }
 
+    /**
+     * Draws the given image at location x, y, with the provided width and height.
+     *
+     * @param ctx: the canvas to draw on.
+     */
     draw(ctx) {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
-    // assume other has {x, y, width, height}
+    /**
+     * Determine if two objects have intersected.
+     *
+     * @param other: the object to compare if it has intersected with.
+     * @returns {boolean} true if the objects have intersected, else false.
+     */
     intersects(other) {
         let tw = this.width;
         let th = this.height;

@@ -24,10 +24,11 @@ const TANK_HEIGHT = 50;
 const TANK_BOTTOM_MARGIN = 10;
 const MISSILE_WIDTH = 16;
 const MISSILE_HEIGHT = 16;
+const MISSILE_SPEED = -10;
 const INVADER_WIDTH = 40;
 const INVADER_HEIGHT = 40;
-const INVADER_TOP_MARGIN = 10;
-const INVADER_MAX_SPEED = 4;
+const INVADER_TOP_MARGIN = 5;
+const INVADER_MAX_SPEED = 5;
 const INVADER_MULTIPLIER = 100;
 let killCount = 0;
 let isGameOver = false;
@@ -64,7 +65,8 @@ function getRandomInt(max) {
 function keyDownHandler(e) {
   if (e.key === " " && (MAX_MISSILE - missiles.length && isGameStart) > 0) {
     missiles.push(new Missile(tank.x + TANK_WIDTH / 2 - MISSILE_WIDTH / 2,
-        canvas.height - TANK_HEIGHT - TANK_BOTTOM_MARGIN - MISSILE_HEIGHT, MISSILE_WIDTH, MISSILE_HEIGHT))
+        canvas.height - TANK_HEIGHT - TANK_BOTTOM_MARGIN - MISSILE_HEIGHT,
+        MISSILE_WIDTH, MISSILE_HEIGHT, MISSILE_SPEED))
     soundShoot.play();
     soundShoot.currentTime = 0;
   }
@@ -181,5 +183,7 @@ function welcomeScreen() {
 
 welcomeScreen();
 
+// listens for keypress
 document.addEventListener("keydown", keyDownHandler);
+// listens for the gameOver event
 document.addEventListener("gameover", gameOver);
