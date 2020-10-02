@@ -54,8 +54,12 @@ function getRandomInt(max) {
 }
 
 /**
- * 
- * @param e
+ * Listens to keyboard presses on the space bar or the enter key.
+ * When enter is pressed, background music and the game starts.
+ * When the space bar is pressed, a new missile is created and the
+ * shooting sound effect is played.
+ *
+ * @param e The event object returned by the eventListener.
  */
 function keyDownHandler(e) {
   if (e.key === " " && (MAX_MISSILE - missiles.length && isGameStart) > 0) {
@@ -71,6 +75,12 @@ function keyDownHandler(e) {
   }
 }
 
+/**
+ * Check if any missiles have gone through the top. If so, take the element out
+ * of the array of missiles. Also check if any missiles and invaders have collided.
+ * If they collided, delete the corresponding missile and invader out of their arrays,
+ * play the explostion sound effect, and increase the kill count.
+ */
 function collisionDetection() {
   missiles.forEach((missile) => {
     if (missile.isOutOfBounds()) {
@@ -88,6 +98,9 @@ function collisionDetection() {
   });
 }
 
+/**
+ * Draw all invaders on the canvas, and update their location values.
+ */
 function drawInvaders() {
   invaders.forEach((invader) => {
     invader.draw(ctx, canvas.height);
@@ -95,6 +108,9 @@ function drawInvaders() {
   });
 }
 
+/**
+ * Draw all missiles on the canvas, and update their location values.
+ */
 function drawMissiles() {
   missiles.forEach((missile) => {
     missile.draw(ctx);
@@ -102,6 +118,11 @@ function drawMissiles() {
   });
 }
 
+/**
+ * Get a random integer in between 0 and canvasWidth * aMultiplier. If the integer
+ * value is inside the canvasWidth, make a new invader at that x value and push
+ * it to the array.
+ */
 function createRandomInvaders() {
   const random = getRandomInt(canvas.width * INVADER_MULTIPLIER);
   if (random > 0 && random < canvas.width - INVADER_WIDTH){
@@ -110,6 +131,11 @@ function createRandomInvaders() {
   }
 }
 
+/**
+ * Pause the music, display the "game over" message and the score, then change
+ * the isGameOver value to true. This value is later used to determine whether
+ * or not to continue the game.
+ */
 function gameOver() {
   music.pause();
   ctx.font = "50px fantasy";
@@ -122,14 +148,17 @@ function gameOver() {
   isGameOver = true;
 }
 
+/**
+ * The main draw function.
+ */
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tank.draw(ctx);
   tank.move(canvas.width);
-  createRandomInvaders();
-  collisionDetection();
   drawInvaders();
   drawMissiles();
+  createRandomInvaders();
+  collisionDetection();
   if (!isGameOver) {
     ctx.fillText("Invaders shot down: " + killCount, 10, 20);
     ctx.fillText("Missiles remaining: " + (MAX_MISSILE - missiles.length), 10, 40);
@@ -137,6 +166,9 @@ function draw() {
   }
 }
 
+/**
+ * Displays the welcome screen
+ */
 function welcomeScreen() {
   ctx.font = "20px fantasy";
   ctx.textAlign = "center";
