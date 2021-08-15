@@ -1,8 +1,8 @@
-#Space Invaders Game
+# Space Invaders Game
 
 [GAME LINK](https://cs280fall20-homework.github.io/hw1-andrewsuh98/)
 
-![Space Invaders Game Demo GIF](https://github.com/andrewsuh98/SpaceInvaders/tree/master/assets/demo.gif)
+![Space Invaders Game Demo GIF](assets/demo.gif)
 
 An implementation the classic arcade game [Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders)
 with the following behavior:
@@ -12,5 +12,3 @@ with the following behavior:
 - The invaders (enemy's spaceships) appears randomly along the top of the screen and move down on a straight vertical trajectory.
 - When a missile hits an invader, it destroys it.
 - When an invader reaches the bottom of the screen, the game is over.
-
-
